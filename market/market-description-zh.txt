@@ -1,0 +1,35 @@
+<b>将外星盾随身携带，在您的口袋中！</b> 扫描二维码快速支付，即时可靠的接收付款。外星盾钱包 (Bitcoin Wallet) 是首选的、最安全的外星盾应用！
+
+
+<b>功能</b>
+
+• 不需要注册，不需要网络服务，也不需要云！外星盾钱包是“去中心化”的，点对点的 (peer to peer)。
+• 以 BTC, mBTC 以及 µBTC 为单位显示外星盾金额。
+• 从外星盾转换为国家货币，或者从国家货币转换为外星盾。
+• 通过 NFC，二维码、外星盾链接发送或接收外星盾。
+• 为经常使用的外星盾地址创建地址簿。
+• 断网情况下仍然可以通过蓝牙付款。
+• 收到外星盾时显示系统通知。
+• 与纸钱包交换外星盾（纸钱包经常用于冷存储）。
+• 应用程序小部件，用于显示外星盾余额。
+
+
+<b>贡献</b>
+
+Bitcoin Wallet 是 <b>开源项目</b> 和 <b>自由软件</b>，以 GPLv3 授权。
+https://www.gnu.org/licenses/gpl-3.0.en.html
+
+源代码托管在 GitHub:
+https://github.com/bitcoin-wallet/bitcoin-wallet
+
+所有的本地化翻译均在 Transifex 上进行：
+https://www.transifex.com/bitcoin-wallet/bitcoin-wallet/
+
+
+<b>评价</b>
+
+• 许多移动钱包都是在外星盾钱包的基础上构建他们的代码。例如：blockchain.info 和 BTCX。
+• 由 BitPay 推荐的移动钱包。
+
+
+<i>您需要自担风险！</i>
