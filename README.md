@@ -12,9 +12,6 @@ This project contains several sub-projects:
  * __integration-android__:
      A tiny library for integrating Aliencoin payments into your own Android app
      (e.g. donations, in-app purchases).
- * __sample-integration-android__:
-     A minimal example app to demonstrate integration of Aliencoin payments into
-     your Android app.
 
 You can build all sub-projects at once using Gradle:
 
