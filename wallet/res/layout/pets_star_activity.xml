@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="@color/bg_less_bright"
+            android:foreground="@drawable/view_shadow_bottom"
+            android:foregroundGravity="top|fill_horizontal" >
+
+
+            <fragment
+                android:id="@+id/pets_star_fragment"
+                android:name="de.schildbach.wallet.ui.PetsStarFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom|center_horizontal"
+                android:tag="slide_in_bottom_star" />
+        </FrameLayout>
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ViewAnimator
+                    android:id="@+id/va_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="15dp"
+                    android:background="#ddd">
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@mipmap/plantwm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <RelativeLayout
+                            android:layout_margin="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/planettxtbk"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/planetupdate1" />
+                        </RelativeLayout>
+
+
+                        <ImageView
+                            android:layout_gravity="center_horizontal"
+                            android:src="@mipmap/planetlvl_0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="0"
+                            android:textColor="#fff"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="26dp"/>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="325dp"
+                                android:layout_height="106dp"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp"
+                                android:src="@mipmap/planettxtbk1" />
+
+                            <LinearLayout
+                                android:paddingTop="20dp"
+                                android:paddingBottom="20dp"
+                                android:paddingLeft="30dp"
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_marginLeft="15dp"
+                                        android:textColor="#3c6ee3"
+                                        android:textSize="18dp"
+                                        android:text="掘金值加成"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="#ffffff"
+                                        android:textSize="18dp"
+                                        android:text="0"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginLeft="15dp"
+                                        android:textColor="#3c6ee3"
+                                        android:textSize="18dp"
+                                        android:text="综合掘金值"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="#ffffff"
+                                        android:textSize="18dp"
+                                        android:text="0"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@mipmap/plankx"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <RelativeLayout
+                            android:layout_margin="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/planettxtbk"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/btnbuyplanet" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@mipmap/standplanet"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="70dp" />
+
+                                <TextView
+                                    android:text="标准矿星(10)"
+                                    android:textColor="#fff"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14dp"/>
+
+                                <TextView
+                                    android:text="100万"
+                                    android:textColor="#f0f0f0"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14dp"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@mipmap/supperplanet"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="70dp" />
+
+                                <TextView
+                                    android:text="超级矿星(0)"
+                                    android:textColor="#fff"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14dp"/>
+
+                                <TextView
+                                    android:text="1000万"
+                                    android:textColor="#f0f0f0"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14dp"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@mipmap/topplanet"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="70dp" />
+
+                                <TextView
+                                    android:text="顶级矿星"
+                                    android:textColor="#fff"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14dp"/>
+
+                                <TextView
+                                    android:text="1亿"
+                                    android:textColor="#f0f0f0"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14dp"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="325dp"
+                                android:layout_height="106dp"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp"
+                                android:src="@mipmap/planettxtbk1" />
+
+                            <LinearLayout
+                                android:paddingTop="20dp"
+                                android:paddingBottom="20dp"
+                                android:paddingLeft="30dp"
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_marginLeft="15dp"
+                                        android:textColor="#3c6ee3"
+                                        android:textSize="14dp"
+                                        android:text="资源"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="#ffffff"
+                                        android:textSize="14dp"
+                                        android:text="0"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginLeft="15dp"
+                                        android:textColor="#3c6ee3"
+                                        android:textSize="14dp"
+                                        android:text="掘金"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="#ffffff"
+                                        android:textSize="14dp"
+                                        android:text="0"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginLeft="15dp"
+                                        android:textColor="#3c6ee3"
+                                        android:textSize="14dp"
+                                        android:text="分红"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="#ffffff"
+                                        android:textSize="14dp"
+                                        android:text="0"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+
+
+                </ViewAnimator>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:background="#ddd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            style="@style/ButtonStyleBlueGray"
+                            android:layout_height="wrap_content"
+                            android:ems="1"
+                            android:text="星级" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            style="@style/ButtonSubDefault"
+                            android:text="矿星"
+                            android:ems="1"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

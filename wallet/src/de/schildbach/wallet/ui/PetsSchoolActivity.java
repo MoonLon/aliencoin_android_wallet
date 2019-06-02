@@ -17,47 +17,12 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionedChecksummedBytes;
-import org.bitcoinj.wallet.Wallet;
-import org.bitcoinj.wallet.Wallet.BalanceType;
-
-import com.google.common.base.Charsets;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
-import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.ui.preference.PreferenceActivity;
-import de.schildbach.wallet.ui.send.SendCoinsActivity;
-import de.schildbach.wallet.ui.send.SweepWalletActivity;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Crypto;
-import de.schildbach.wallet.util.Io;
-import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
@@ -82,12 +47,49 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ViewAnimator;
+
+import com.google.common.base.Charsets;
+
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.VersionedChecksummedBytes;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.Wallet.BalanceType;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
+import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.ui.preference.PreferenceActivity;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
+import de.schildbach.wallet.ui.send.SweepWalletActivity;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Crypto;
+import de.schildbach.wallet.util.Io;
+import de.schildbach.wallet.util.Nfc;
+import de.schildbach.wallet.util.WalletUtils;
 
 /**
  * @author Andreas Schildbach
  */
-public final class WalletActivity extends AbstractBindServiceActivity
-        implements ActivityCompat.OnRequestPermissionsResultCallback {
+public final class PetsSchoolActivity extends AbstractBindServiceActivity
+        implements ActivityCompat.OnRequestPermissionsResultCallback ,View.OnClickListener{
     private static final int DIALOG_BACKUP_WALLET_PERMISSION = 0;
     private static final int DIALOG_RESTORE_WALLET_PERMISSION = 1;
     private static final int DIALOG_RESTORE_WALLET = 2;
@@ -102,6 +104,12 @@ public final class WalletActivity extends AbstractBindServiceActivity
     private static final int REQUEST_CODE_BACKUP_WALLET = 1;
     private static final int REQUEST_CODE_RESTORE_WALLET = 2;
 
+    private TextView subAttView;
+    private TextView subFightView;
+    private TextView subFeedView;
+    private TextView subPlayView;
+    private ViewAnimator vaInfoView;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +118,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
         config = application.getConfiguration();
         wallet = application.getWallet();
 
-        setContentView(R.layout.wallet_content);
+        setContentView(R.layout.pets_school_activity);
 
         final View exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         if (exchangeRatesFragment != null)
@@ -134,6 +142,17 @@ public final class WalletActivity extends AbstractBindServiceActivity
             checkSavedCrashTrace();
         }
 
+        subAttView = findViewById(R.id.sub_att);
+        subAttView.setOnClickListener(this);
+        subFightView = findViewById(R.id.sub_fight);
+        subFightView.setOnClickListener(this);
+        subFeedView = findViewById(R.id.sub_feed);
+        subFeedView.setOnClickListener(this);
+        subPlayView = findViewById(R.id.sub_play);
+        subPlayView.setOnClickListener(this);
+
+        vaInfoView =  findViewById(R.id.va_info);
+
         config.touchLastUsed();
 
         handleIntent(getIntent());
@@ -141,6 +160,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
         final FragmentManager fragmentManager = getFragmentManager();
         MaybeMaintenanceFragment.add(fragmentManager);
         AlertDialogsFragment.add(fragmentManager);
+
     }
 
     @Override
@@ -185,7 +205,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(WalletActivity.this, null, 0, messageResId, messageArgs);
+                    dialog(PetsSchoolActivity.this, null, 0, messageResId, messageArgs);
                 }
             }.parse();
         }
@@ -215,13 +235,13 @@ public final class WalletActivity extends AbstractBindServiceActivity
             new StringInputParser(input) {
                 @Override
                 protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                    SendCoinsActivity.start(WalletActivity.this, paymentIntent);
+                    SendCoinsActivity.start(PetsSchoolActivity.this, paymentIntent);
                 }
 
                 @Override
                 protected void handlePrivateKey(final VersionedChecksummedBytes key) {
                     if (Constants.ENABLE_SWEEP_WALLET)
-                        SweepWalletActivity.start(WalletActivity.this, key);
+                        SweepWalletActivity.start(PetsSchoolActivity.this, key);
                     else
                         super.handlePrivateKey(key);
                 }
@@ -233,7 +253,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
+                    dialog(PetsSchoolActivity.this, null, R.string.button_scan, messageResId, messageArgs);
                 }
             }.parse();
         }
@@ -243,7 +263,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     public boolean onCreateOptionsMenu(final Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        getMenuInflater().inflate(R.menu.wallet_options, menu);
+        //getMenuInflater().inflate(R.menu.wallet_options, menu);
 
         return true;
     }
@@ -251,22 +271,6 @@ public final class WalletActivity extends AbstractBindServiceActivity
     @Override
     public boolean onPrepareOptionsMenu(final Menu menu) {
         super.onPrepareOptionsMenu(menu);
-
-        final Resources res = getResources();
-        final String externalStorageState = Environment.getExternalStorageState();
-
-        menu.findItem(R.id.wallet_options_exchange_rates)
-                .setVisible(Constants.ENABLE_EXCHANGE_RATES && res.getBoolean(R.bool.show_exchange_rates_option));
-        menu.findItem(R.id.wallet_options_sweep_wallet).setVisible(Constants.ENABLE_SWEEP_WALLET);
-        menu.findItem(R.id.wallet_options_restore_wallet)
-                .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState)
-                        || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
-        menu.findItem(R.id.wallet_options_backup_wallet)
-                .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
-        final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
-        encryptKeysOption.setTitle(wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change
-                : R.string.wallet_options_encrypt_keys_set);
-
         return true;
     }
 
@@ -334,16 +338,64 @@ public final class WalletActivity extends AbstractBindServiceActivity
             return true;
 
         case R.id.pets_school:
-            startActivity(new Intent(this, PetsSchoolActivity.class));
+            startActivity(new Intent(this, NetworkMonitorActivity.class));
             return true;
 
         case R.id.pets_star:
-            startActivity(new Intent(this, PetsStarActivity.class));
+            HelpDialogFragment.page(getFragmentManager(), R.string.pets_star);
 
             return true;
         }
 
+        if(item.getTitle() == null){
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void clearSubSelect(){
+        int color = 0xffcccccc;
+        int drawableId = R.drawable.btn_corner_bluegray_bg2;
+        subAttView.setTextColor(color);
+        subAttView.setBackground(ContextCompat.getDrawable(this,drawableId));
+        subFightView.setTextColor(color);
+        subFightView.setBackground(ContextCompat.getDrawable(this,drawableId));
+        subFeedView.setTextColor(color);
+        subFeedView.setBackground(ContextCompat.getDrawable(this,drawableId));
+        subPlayView.setTextColor(color);
+        subPlayView.setBackground(ContextCompat.getDrawable(this,drawableId));
+    }
+    private void subSelect(TextView t){
+        int color = 0xffffffff;
+        int drawableId = R.drawable.btn_corner_bluegray_bg;
+        t.setTextColor(color);
+        t.setBackground(ContextCompat.getDrawable(this,drawableId));
+    }
+
+    @Override
+    public void onClick(final View v) {
+
+        clearSubSelect();
+
+        switch (v.getId()) {
+            case R.id.sub_att:
+                subSelect(subAttView);
+                vaInfoView.setDisplayedChild(0);
+                break;
+            case R.id.sub_fight:
+                subSelect(subFightView);
+                vaInfoView.setDisplayedChild(1);
+                break;
+            case R.id.sub_feed:
+                subSelect(subFeedView);
+                vaInfoView.setDisplayedChild(2);
+                break;
+            case R.id.sub_play:
+                subSelect(subPlayView);
+                vaInfoView.setDisplayedChild(3);
+                break;
+        }
     }
 
     public void handleRequestCoins() {
@@ -398,7 +450,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             @Override
             protected CharSequence collectDeviceInfo() throws IOException {
                 final StringBuilder deviceInfo = new StringBuilder();
-                CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);
+                CrashReporter.appendDeviceInfo(deviceInfo, PetsSchoolActivity.this);
                 return deviceInfo;
             }
 
@@ -624,7 +676,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
                 @Override
                 protected CharSequence collectDeviceInfo() throws IOException {
                     final StringBuilder deviceInfo = new StringBuilder();
-                    CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);
+                    CrashReporter.appendDeviceInfo(deviceInfo, PetsSchoolActivity.this);
                     return deviceInfo;
                 }
 
@@ -656,7 +708,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
             dialog.setPositiveButton(R.string.button_dismiss, null);
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(R.string.button_retry, new OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
                     showDialog(DIALOG_RESTORE_WALLET);
@@ -679,7 +731,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
             dialog.setPositiveButton(R.string.button_dismiss, null);
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(R.string.button_retry, new OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
                     showDialog(DIALOG_RESTORE_WALLET);
@@ -710,7 +762,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
             dialog.setPositiveButton(R.string.button_dismiss, null);
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(R.string.button_retry, new OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
                     showDialog(DIALOG_RESTORE_WALLET);
@@ -745,7 +797,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
         }
         dialog.setMessage(message);
-        dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+        dialog.setNeutralButton(R.string.button_ok, new OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, final int id) {
                 getWalletApplication().resetBlockchain();

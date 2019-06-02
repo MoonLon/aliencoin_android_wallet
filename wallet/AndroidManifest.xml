@@ -183,6 +183,20 @@
             android:theme="@style/My.Theme.ChildActivity"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name="de.schildbach.wallet.ui.PetsSchoolActivity"
+            android:configChanges="keyboard|keyboardHidden"
+            android:label="@string/pets_school"
+            android:theme="@style/My.Theme.ChildActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="de.schildbach.wallet.ui.PetsStarActivity"
+            android:configChanges="keyboard|keyboardHidden"
+            android:label="@string/pets_star"
+            android:theme="@style/My.Theme.ChildActivity"
+            android:windowSoftInputMode="adjustResize" />
+
         <provider
             android:name="de.schildbach.wallet.data.AddressBookProvider"
             android:authorities="de.schildbach.wallet.address_book"

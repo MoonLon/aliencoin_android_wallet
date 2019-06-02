@@ -323,6 +323,8 @@
   <string name="button_settings">设置</string>
   <string name="action_show_qr">显示二维码</string>
   <string name="action_browse">浏览</string>
+  <string name="pets_school">宠物研究所</string>
+  <string name="pets_star">宠物星球</string>
   <!--generic strings-->
   <string name="time_today">今天</string>
   <string name="address_unlabeled">(无标签)</string>

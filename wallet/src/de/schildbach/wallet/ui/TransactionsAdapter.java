@@ -192,6 +192,10 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         notifyDataSetChanged();
     }
 
+    public List<Transaction> getTransactions (){
+        return transactions;
+    }
+
     @Override
     public int getItemCount() {
         int count = transactions.size();
@@ -507,7 +511,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 extendFeeView.setVisibility(View.GONE);
             }
 
-            // value
+            // value zhouChange 这个是具体的值，不含手续费 转出1个  -100000000
             valueView.setAlwaysSigned(true);
             valueView.setFormat(format);
             final Coin value;

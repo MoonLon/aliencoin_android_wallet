@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+
+        <FrameLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="@color/bg_less_bright"
+            android:foreground="@drawable/view_shadow_bottom"
+            android:foregroundGravity="top|fill_horizontal" >
+
+            <fragment
+                android:id="@+id/wallet_transactions_fragment"
+                android:name="de.schildbach.wallet.ui.PetsSchoolFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom|center_horizontal"
+                android:tag="slide_in_bottom" />
+        </FrameLayout>
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/pet100"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="380dp">
+
+                <ViewAnimator
+                    android:id="@+id/va_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:background="#ddd">
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_att"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="10dp"
+                                android:text="等级"
+                                android:textSize="20dp" />
+
+                            <TextView
+                                android:id="@+id/dj"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:padding="10dp"
+                                android:text="0"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="#eee">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="8dp"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="8dp"
+                                android:text="基础属性"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="力量" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="智力" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="敏捷" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="统帅" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="#eee">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="8dp"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="8dp"
+                                android:text="增幅属性"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="格挡" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="暴击" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="跳距" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="攻距" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="移动" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="瞬发" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:background="#eee">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="8dp"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="8dp"
+                                android:text="技能属性"
+                                android:textSize="14dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="科技熟练" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="超能力" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="团战指挥" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="掘金" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                style="@style/TextSchoolAttInfo"
+                                android:text="0" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_combat_power"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="320dp"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="320dp"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/powereff" />
+                            <TextView
+                                android:text="战力"
+                                android:textColor="#5da3ef"
+                                android:textSize="20dp"
+                                android:paddingRight="150dp"
+                                android:paddingBottom="40dp"
+                                android:layout_centerInParent="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/tv_combat_power"
+                                android:text="0"
+                                android:textColor="#fff"
+                                android:textSize="24dp"
+                                android:paddingBottom="40dp"
+                                android:layout_centerInParent="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/ll_feed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="宠物喂养消耗10000 alc/次，每18小时可喂养一次。
+多次喂养视为无效，且消耗的gas无法退回。
+建议每天大概时间段喂养一次即可。
+喂养地址为超级节点地址，请认准所属的超级节点。"/>
+
+                        <ImageView
+                            android:layout_margin="20dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/feedhover"/>
+                        <TextView
+                            android:text="无宠物可喂养，请尽快领取您的专属宠物。"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="3dp"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="8dp"
+                                android:text="1.玩法介绍"
+                                android:textStyle="bold"
+                                android:textSize="12dp" />
+                            <TextView
+                                android:textSize="11dp"
+                                android:text="宠物数值养成系统建立在Aliencoin Block chain，根据账本输出值来决定宠物代数和属性，没有人能控制玩家的宠物，请保管好钱包密钥，一旦丢失无法找回。"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="3dp"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="8dp"
+                                android:text="2.如何获取宠物"
+                                android:textStyle="bold"
+                                android:textSize="12dp" />
+                            <TextView
+                                android:textSize="11dp"
+                                android:text="首次转账固定数代币，即可获得对应代宠物：
+10亿alc-隐藏代，1亿alc-0代，1000万alc-1代，100万alc-2代，10万alc-3代"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <ImageView
+                                android:layout_margin="5dp"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@mipmap/getpet"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:textSize="11dp"
+                                android:text="转账前请再三确认数目准确无误，出现误差无法生成宠物，且代币无法退回。"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="3dp"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="8dp"
+                                android:text="3.获取宠物注意事项"
+                                android:textStyle="bold"
+                                android:textSize="12dp" />
+                            <TextView
+                                android:textSize="11dp"
+                                android:text="仅首次转账有效,获得宠物后无法叠加获得和升级代数,如玩家首次转账1000万alc获得1代宠物,则同一个钱包密钥,再次转账1亿alc则视为无效,代币无法退回.
+正确操作流程：
+1，首次转账固定数额代币获得对应代数宠物
+2，获得宠物后，持续喂养升级数值，不喂养仅为不升级，宠物不会消失
+3，如需更换宠物，可选择重新生成新的钱包密钥文件"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+
+
+
+
+                    </LinearLayout>
+
+
+
+
+                </ViewAnimator>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:background="#ddd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/sub_att"
+                            style="@style/ButtonStyleBlueGray"
+                            android:layout_height="wrap_content"
+                            android:ems="1"
+                            android:text="属性" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/sub_fight"
+                            style="@style/ButtonSubDefault"
+                            android:text="战力"
+                            android:ems="1"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/sub_feed"
+                            style="@style/ButtonSubDefault"
+                            android:text="喂养"
+                            android:ems="1"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/sub_play"
+                            style="@style/ButtonSubDefault"
+                            android:text="玩法"
+                            android:ems="1"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
