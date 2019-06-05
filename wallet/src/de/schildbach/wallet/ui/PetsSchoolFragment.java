@@ -600,12 +600,8 @@ public class PetsSchoolFragment extends Fragment implements LoaderCallbacks<List
     }
 
     private void refreshPets(){
-        //confidence.depth 确认数
-        //cachedValue 5个转入500000000，1个转出-100045400
-        //转出 outputs
         List<Transaction> transactions = adapter.getTransactions();
-        for(int i=0;i<transactions.size();i++){
 
-        }
+        ((PetsSchoolActivity) activity).refrePets(transactions,adapter.getTransactionCache());
     }
 }

@@ -35,6 +35,7 @@
   <string name="wallet_transactions_options_filter_received">收入</string>
   <string name="wallet_transactions_options_filter_sent">支出</string>
   <string name="wallet_options_safety_menu">安全</string>
+  <string name="wallet_options_technical_notes_title">技术说明</string>
   <string name="wallet_options_encrypt_keys_set">设置支付 PIN 码</string>
   <string name="wallet_options_encrypt_keys_change">更改支付 PIN 码</string>
   <string name="wallet_options_safety">安全及风险提示</string>

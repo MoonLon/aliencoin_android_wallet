@@ -49,7 +49,6 @@
                     android:padding="15dp"
                     android:background="#ddd">
 
-
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
@@ -73,6 +72,8 @@
                                 android:visibility="gone" />
 
                             <ImageView
+                                android:id="@+id/sjxj"
+                                android:tag="sjxj"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
@@ -87,6 +88,7 @@
                             android:layout_height="wrap_content" />
 
                         <TextView
+                            android:tag="star"
                             android:text="0"
                             android:textColor="#fff"
                             android:textStyle="bold"
@@ -127,10 +129,11 @@
                                         android:layout_height="wrap_content" />
 
                                     <TextView
+                                        android:tag="jjzjc"
                                         android:layout_marginLeft="10dp"
                                         android:textColor="#ffffff"
                                         android:textSize="18dp"
-                                        android:text="0"
+                                        android:text="0%"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content" />
 
@@ -149,6 +152,7 @@
                                         android:layout_height="wrap_content" />
 
                                     <TextView
+                                        android:tag="zhjjz"
                                         android:layout_marginTop="5dp"
                                         android:layout_marginLeft="10dp"
                                         android:textColor="#ffffff"
@@ -164,7 +168,6 @@
                         </RelativeLayout>
 
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:orientation="vertical"
@@ -190,6 +193,7 @@
                                 android:visibility="gone" />
 
                             <ImageView
+                                android:id="@+id/gmkx"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
@@ -206,12 +210,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
                                 <ImageView
+                                    android:id="@+id/gmbz"
                                     android:layout_gravity="center_horizontal"
                                     android:src="@mipmap/standplanet"
                                     android:layout_width="wrap_content"
                                     android:layout_height="70dp" />
 
                                 <TextView
+                                    android:tag="bzkx"
                                     android:text="标准矿星(10)"
                                     android:textColor="#fff"
                                     android:textStyle="bold"
@@ -236,12 +242,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
                                 <ImageView
+                                    android:id="@+id/gmcj"
                                     android:layout_gravity="center_horizontal"
                                     android:src="@mipmap/supperplanet"
                                     android:layout_width="wrap_content"
                                     android:layout_height="70dp" />
 
                                 <TextView
+                                    android:tag="cjkx"
                                     android:text="超级矿星(0)"
                                     android:textColor="#fff"
                                     android:textStyle="bold"
@@ -266,12 +274,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
                                 <ImageView
+                                    android:id="@+id/gmdj"
                                     android:layout_gravity="center_horizontal"
                                     android:src="@mipmap/topplanet"
                                     android:layout_width="wrap_content"
                                     android:layout_height="70dp" />
 
                                 <TextView
+                                    android:tag="djkx"
                                     android:text="顶级矿星"
                                     android:textColor="#fff"
                                     android:textStyle="bold"
@@ -324,6 +334,7 @@
                                         android:layout_height="wrap_content" />
 
                                     <TextView
+                                        android:tag="zy"
                                         android:layout_marginLeft="10dp"
                                         android:textColor="#ffffff"
                                         android:textSize="14dp"
@@ -346,6 +357,7 @@
                                         android:layout_height="wrap_content" />
 
                                     <TextView
+                                        android:tag="jj"
                                         android:layout_marginTop="5dp"
                                         android:layout_marginLeft="10dp"
                                         android:textColor="#ffffff"
@@ -370,6 +382,7 @@
                                         android:layout_height="wrap_content" />
 
                                     <TextView
+                                        android:tag="fh"
                                         android:layout_marginTop="5dp"
                                         android:layout_marginLeft="10dp"
                                         android:textColor="#ffffff"
@@ -389,6 +402,7 @@
 
 
                 </ViewAnimator>
+
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -399,6 +413,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
+                            android:id="@+id/sub_star_level"
                             style="@style/ButtonStyleBlueGray"
                             android:layout_height="wrap_content"
                             android:ems="1"
@@ -409,6 +424,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:id="@+id/sub_star_ore"
                             style="@style/ButtonSubDefault"
                             android:text="矿星"
                             android:ems="1"

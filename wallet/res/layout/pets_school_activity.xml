@@ -35,7 +35,9 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
+                android:tag="pet_iv"
                 android:src="@mipmap/pet100"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
@@ -45,12 +47,12 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="380dp">
+                android:layout_height="360dp">
 
                 <ViewAnimator
                     android:id="@+id/va_info"
                     android:layout_width="match_parent"
-                    android:layout_height="380dp"
+                    android:layout_height="360dp"
                     android:layout_weight="1"
                     android:padding="10dp"
                     android:background="#ddd">
@@ -77,7 +79,7 @@
                                 android:textSize="20dp" />
 
                             <TextView
-                                android:id="@+id/dj"
+                                android:tag="dj"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
@@ -119,6 +121,7 @@
                                 android:text="力量" />
 
                             <TextView
+                                android:tag="liliang"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -133,6 +136,7 @@
                                 android:text="智力" />
 
                             <TextView
+                                android:tag="zhili"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -156,6 +160,7 @@
                                 android:text="敏捷" />
 
                             <TextView
+                                android:tag="minjie"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -170,6 +175,7 @@
                                 android:text="统帅" />
 
                             <TextView
+                                android:tag="tongshuai"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -210,6 +216,7 @@
                                 android:text="格挡" />
 
                             <TextView
+                                android:tag="gedang"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -224,6 +231,7 @@
                                 android:text="暴击" />
 
                             <TextView
+                                android:tag="baoji"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -247,6 +255,7 @@
                                 android:text="跳距" />
 
                             <TextView
+                                android:tag="tiaoju"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -261,6 +270,7 @@
                                 android:text="攻距" />
 
                             <TextView
+                                android:tag="gongju"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -284,6 +294,7 @@
                                 android:text="移动" />
 
                             <TextView
+                                android:tag="yidong"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -298,6 +309,7 @@
                                 android:text="瞬发" />
 
                             <TextView
+                                android:tag="shunfa"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -339,6 +351,7 @@
                                 android:text="科技熟练" />
 
                             <TextView
+                                android:tag="keji"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -353,6 +366,7 @@
                                 android:text="超能力" />
 
                             <TextView
+                                android:tag="chaonengli"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -376,6 +390,7 @@
                                 android:text="团战指挥" />
 
                             <TextView
+                                android:tag="tuanzhan"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -390,6 +405,7 @@
                                 android:text="掘金" />
 
                             <TextView
+                                android:tag="juejin"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -403,7 +419,7 @@
 
 
                     <LinearLayout
-                        android:id="@+id/ll_combat_power"
+                        android:tag="ll_combat_power"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -428,6 +444,7 @@
                                 android:layout_height="wrap_content" />
 
                             <TextView
+                                android:tag="zhanli"
                                 android:id="@+id/tv_combat_power"
                                 android:text="0"
                                 android:textColor="#fff"
@@ -449,6 +466,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:textSize="14dp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="宠物喂养消耗10000 alc/次，每18小时可喂养一次。
@@ -456,13 +474,17 @@
 建议每天大概时间段喂养一次即可。
 喂养地址为超级节点地址，请认准所属的超级节点。"/>
 
-                        <ImageView
+                        <ImageButton
+                            android:id="@+id/btn_feed"
                             android:layout_margin="20dp"
                             android:layout_gravity="center_horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/feedhover"/>
+                            android:background="@drawable/feed_button"
+                            />
                         <TextView
+                            android:tag="feedInfo"
+                            android:textSize="14dp"
                             android:text="无宠物可喂养，请尽快领取您的专属宠物。"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -516,12 +538,16 @@
 10亿alc-隐藏代，1亿alc-0代，1000万alc-1代，100万alc-2代，10万alc-3代"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
-                            <ImageView
+
+
+                            <ImageButton
+                                android:id="@+id/btn_getpet"
                                 android:layout_margin="5dp"
                                 android:layout_gravity="center_horizontal"
-                                android:src="@mipmap/getpet"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/getpet_button"
+                                />
 
                             <TextView
                                 android:textSize="11dp"
