@@ -337,6 +337,8 @@
   <string name="button_settings">設定</string>
   <string name="action_show_qr">顯示 QR 二維條碼</string>
   <string name="action_browse">瀏覽</string>
+  <string name="pets_school">寵物研究所</string>
+  <string name="pets_star">寵物星球</string>
   <!--generic strings-->
   <string name="time_today">今天</string>
   <string name="address_unlabeled">(無標籤)</string>

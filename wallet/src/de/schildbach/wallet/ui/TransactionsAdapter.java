@@ -100,17 +100,21 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private Map<Sha256Hash, TransactionCacheEntry> transactionCache = new HashMap<Sha256Hash, TransactionCacheEntry>();
 
-    private static class TransactionCacheEntry {
-        private final Coin value;
-        private final boolean sent;
-        private final boolean self;
-        private final boolean showFee;
-        @Nullable
-        private final Address address;
-        @Nullable
-        private final String addressLabel;
+    public Map<Sha256Hash, TransactionCacheEntry> getTransactionCache(){
+        return transactionCache;
+    }
 
-        private TransactionCacheEntry(final Coin value, final boolean sent, final boolean self, final boolean showFee,
+    public static class TransactionCacheEntry {
+        public final Coin value;
+        public final boolean sent;
+        public final boolean self;
+        public final boolean showFee;
+        @Nullable
+        public final Address address;
+        @Nullable
+        public final String addressLabel;
+
+        public TransactionCacheEntry(final Coin value, final boolean sent, final boolean self, final boolean showFee,
                 final @Nullable Address address, final @Nullable String addressLabel) {
             this.value = value;
             this.sent = sent;
@@ -190,6 +194,10 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         transactionCache.clear();
 
         notifyDataSetChanged();
+    }
+
+    public List<Transaction> getTransactions (){
+        return transactions;
     }
 
     @Override
@@ -507,7 +515,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 extendFeeView.setVisibility(View.GONE);
             }
 
-            // value
+            // value zhouChange 这个是具体的值，不含手续费 转出1个  -100000000
             valueView.setAlwaysSigned(true);
             valueView.setFormat(format);
             final Coin value;

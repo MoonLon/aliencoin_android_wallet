@@ -35,6 +35,7 @@
   <string name="wallet_transactions_options_filter_received">收入</string>
   <string name="wallet_transactions_options_filter_sent">支出</string>
   <string name="wallet_options_safety_menu">安全</string>
+  <string name="wallet_options_technical_notes_title">技术说明</string>
   <string name="wallet_options_encrypt_keys_set">设置支付 PIN 码</string>
   <string name="wallet_options_encrypt_keys_change">更改支付 PIN 码</string>
   <string name="wallet_options_safety">安全及风险提示</string>
@@ -323,6 +324,8 @@
   <string name="button_settings">设置</string>
   <string name="action_show_qr">显示二维码</string>
   <string name="action_browse">浏览</string>
+  <string name="pets_school">宠物研究所</string>
+  <string name="pets_star">宠物星球</string>
   <!--generic strings-->
   <string name="time_today">今天</string>
   <string name="address_unlabeled">(无标签)</string>

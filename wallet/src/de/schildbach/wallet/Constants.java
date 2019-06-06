@@ -18,6 +18,9 @@
 package de.schildbach.wallet;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.bitcoinj.core.Context;
@@ -219,6 +222,119 @@ public final class Constants {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
         HTTP_CLIENT.interceptors().add(loggingInterceptor);
     }
+
+
+
+
+    public static final int confirms = 1;
+
+    public static final int eachFeedAmount = 10000;
+
+    public static final String DESTROY_ADDRESS = "AbewbnvCn9M9Drz1Z4i9Vfr4nATDf7Wsr3";
+
+    public static final int  DESTROY_AMOUNT = 3300000;
+
+    public static final String BOSS_ADDRESS = "AZrBpp4UymXF5dEa7u2kPbnEksnSXoioLi";
+
+    public static final int planetconfirms = 0;
+
+//    public static final int PlanetUpdteAmount = 1;
+//    public static final int PlanetNormalAmount = 2;
+//    public static final int PlanetSupperAmount = 3;
+//    public static final int PlanetTopAmount = 5;
+//    public static final int 	updateLvl0 = 1;//35;
+//    public static final int 	updateLvl1 = 2;//70;
+
+    public static final int PlanetUpdteAmount =  20000;
+    public static final int PlanetNormalAmount = 1000000;
+    public static final int PlanetSupperAmount = 10000000;
+    public static final int PlanetTopAmount =    100000000;
+    public static final int 	updateLvl0 = 1;//35;
+    public static final int 	updateLvl1 = 2;//70;
+
+
+    public static final double PlanetNormalValue = 0.1;
+    public static final double PlanetSupperValue = 0.5;
+    public static final double PlanetTopValue = 1;
+    public static final double IncomeCoinsPerYear = (0.000001);
+
+
+
+
+    public static final  int onedaytimevalsec = (24*3600);
+
+
+    public static final String PLANET_ADDRESS = "AP6ujp2pxsefXhczhKgyQVtgxYjfyjgZUz";
+
+
+    public static final ArrayList<String> FEED_ADDRESSES = new ArrayList<String>() ;
+    static {
+        FEED_ADDRESSES.add("AafiiGE9mtE7wT6N8oVTvNSnDJAJS3dMqq");
+        FEED_ADDRESSES.add("AND2ri13bpY2g1m8XkrwHpCB977D4TqRVw");
+        FEED_ADDRESSES.add("ANg4ww3464Si6QVCd2LzRAYvu69ZCzz7Wz");
+        FEED_ADDRESSES.add("Ac4UpCXkEYTRVUN4t2fD3UYh8TBz3w2Dsj");
+        FEED_ADDRESSES.add("AZFGo6CbhCSXPWyHfnbBMTaG4wrT5Q9tPx");
+        FEED_ADDRESSES.add("AXm5xYSeKbX12JnBT2QpMkkd11yQz7wBXt");
+        FEED_ADDRESSES.add("AM43rGjDZ6fP7ZJvZcFvtGVnaB52MTKXbz");
+        FEED_ADDRESSES.add("AanXYUBw3dvSd4EX2L3TVro56A1bFmG4xZ");
+        FEED_ADDRESSES.add("AQq5z6J1N4hoc9KCKBC6b9keEu8cFTXrbB");
+        FEED_ADDRESSES.add("ATKhArGh8AxCrMDzDkCCzU2PpYpGzsMegY");
+        FEED_ADDRESSES.add("AKRJLsSzj3Gz9CAXpt7pHyEh2YvGdxViQX");
+        FEED_ADDRESSES.add("AKuiytqn3VhAbYAzNbWyNxbRXTLSBB7mNT");
+        FEED_ADDRESSES.add("AMoGCKopSiwQDoXEFCqRfouVrn2KJjBXSr");
+        FEED_ADDRESSES.add("AbiRwBgW71KeWaHnPXRUL3vRDK81X1uDyv");
+        FEED_ADDRESSES.add("AexmHuQcnGn7PdY2xWxsfTApQAvoGWWjmg");
+        FEED_ADDRESSES.add("ANtXUQdDcA6oP24jpu3fMtsaCDDzDqrKyz");
+        FEED_ADDRESSES.add("ALuk7N4CQp8gAwjBDjCu531MYV591E58Cv");
+        FEED_ADDRESSES.add("AamiujKCndhrwzpZ9MZZmn6YdDDWXCm6bz");
+        FEED_ADDRESSES.add("AQchsrt2m7rwFjvjdsr6Fko6bhSfaikNTv");
+        FEED_ADDRESSES.add("AHiw2dXMABB3YWkp5jnPU67s2iksjpxs2W");
+        FEED_ADDRESSES.add("AX7Dzuym7yJNrosntcCmj9NRV7i5cpURAH");
+        FEED_ADDRESSES.add("AdmZ7mCLVCgaFzga2iCbzfqse6RakoBzbj");
+        FEED_ADDRESSES.add("Ae2VLGHcjeHHtc28j1kgAu9VaHuxVTGqT8");
+    }
+
+
+
+    public static Map<String,int[][]> PET_PROPETY_NUMBER = new HashMap<>();
+
+    static {
+        PET_PROPETY_NUMBER.put("liliang", new int[][]{{99, 0}, {-1, 2000}, {0, 1500}, {1, 1000}, {2, 500}, {3, 100}} );
+        PET_PROPETY_NUMBER.put("minjie"   , new int[][]{{99, 0}, {-1, 2000}, {0, 1500}, {1, 1000}, {2, 500}, {3, 100}} );
+        PET_PROPETY_NUMBER.put("zhili"    , new int[][]{{99, 0}, {-1, 2000}, {0, 1500}, {1, 1000}, {2, 500}, {3, 100}} );
+        PET_PROPETY_NUMBER.put("tongshuai", new int[][]{{99, 0}, {-1, 200}, {0, 150}, {1, 100}, {2, 100}, {3, 100}} );
+        PET_PROPETY_NUMBER.put("gedang"   , new int[][]{{99, 0}, {-1, 20}, {0, 15}, {1, 10}, {2, 10}, {3, 10}} );
+        PET_PROPETY_NUMBER.put("baoji"    , new int[][]{{99, 0}, {-1, 20}, {0, 15}, {1, 10}, {2, 10}, {3, 10}} );
+        PET_PROPETY_NUMBER.put("yidong"   , new int[][]{{99, 0}, {-1, 5}, {0, 3}, {1, 2}, {2, 2}, {3, 2}} );
+        PET_PROPETY_NUMBER.put("tiaoju"   , new int[][]{{99, 0}, {-1, 5}, {0, 3}, {1, 2}, {2, 2}, {3, 2}} );
+        PET_PROPETY_NUMBER.put("gongju"   , new int[][]{{99, 0}, {-1, 5}, {0, 3}, {1, 2}, {2, 2}, {3, 2}} );
+        PET_PROPETY_NUMBER.put("shunfa"   , new int[][]{{99, 0}, {-1, 5}, {0, 3}, {1, 2}, {2, 2}, {3, 2}} );
+        PET_PROPETY_NUMBER.put("keji"     , new int[][]{{99, 0}, {-1, 10}, {0, 8}, {1, 5}, {2, 5}, {3, 5}} );
+        PET_PROPETY_NUMBER.put("chaonengli", new int[][]{{99, 0}, {-1, 10}, {0, 8}, {1, 5}, {2, 5}, {3, 5}} );
+        PET_PROPETY_NUMBER.put("tuanzhan" , new int[][]{{99, 0}, {-1, 15}, {0, 10}, {1, 5}, {2, 5}, {3, 5}} );
+        PET_PROPETY_NUMBER.put("juejin"   , new int[][]{{99, 0}, {-1, 20}, {0, 15}, {1, 10}, {2, 5}, {3, 1}} );
+    }
+
+
+    public static Map<String,Integer>  petPropetyResult = new HashMap<>();
+
+    static {
+        petPropetyResult.put("liliang"	, 0);
+        petPropetyResult.put("minjie"	, 0);
+        petPropetyResult.put("zhili"	, 0);
+        petPropetyResult.put("tongshuai", 0);
+        petPropetyResult.put("gedang"	, 0);
+        petPropetyResult.put("baoji"	, 0);
+        petPropetyResult.put("yidong"	, 0);
+        petPropetyResult.put("tiaoju"	, 0);
+        petPropetyResult.put("gongju"	, 0);
+        petPropetyResult.put("shunfa"	, 0);
+        petPropetyResult.put("keji" 	, 0);
+        petPropetyResult.put("chaonengli", 0);
+        petPropetyResult.put("tuanzhan" , 0);
+        petPropetyResult.put("juejin"	, 0);
+    };
+
 
     private static final Logger log = LoggerFactory.getLogger(Constants.class);
 }

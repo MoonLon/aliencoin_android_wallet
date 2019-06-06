@@ -17,47 +17,12 @@
 
 package de.schildbach.wallet.ui;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.bitcoinj.core.Transaction;
-import org.bitcoinj.core.VerificationException;
-import org.bitcoinj.core.VersionedChecksummedBytes;
-import org.bitcoinj.wallet.Wallet;
-import org.bitcoinj.wallet.Wallet.BalanceType;
-
-import com.google.common.base.Charsets;
-
-import de.schildbach.wallet.Configuration;
-import de.schildbach.wallet.Constants;
-import de.schildbach.wallet.WalletApplication;
-import de.schildbach.wallet.data.PaymentIntent;
-import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
-import de.schildbach.wallet.ui.InputParser.StringInputParser;
-import de.schildbach.wallet.ui.preference.PreferenceActivity;
-import de.schildbach.wallet.ui.send.SendCoinsActivity;
-import de.schildbach.wallet.ui.send.SweepWalletActivity;
-import de.schildbach.wallet.util.CrashReporter;
-import de.schildbach.wallet.util.Crypto;
-import de.schildbach.wallet.util.Io;
-import de.schildbach.wallet.util.Nfc;
-import de.schildbach.wallet.util.WalletUtils;
-import de.schildbach.wallet.R;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
@@ -65,6 +30,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
@@ -72,7 +39,10 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.text.format.DateUtils;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,14 +50,68 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ViewAnimator;
+
+import com.google.common.base.Charsets;
+
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.VerificationException;
+import org.bitcoinj.core.VersionedChecksummedBytes;
+import org.bitcoinj.utils.ExchangeRate;
+import org.bitcoinj.wallet.DefaultCoinSelector;
+import org.bitcoinj.wallet.Wallet;
+import org.bitcoinj.wallet.Wallet.BalanceType;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import de.schildbach.wallet.Configuration;
+import de.schildbach.wallet.Constants;
+import de.schildbach.wallet.R;
+import de.schildbach.wallet.WalletApplication;
+import de.schildbach.wallet.data.AddressBookProvider;
+import de.schildbach.wallet.data.PaymentIntent;
+import de.schildbach.wallet.ui.InputParser.BinaryInputParser;
+import de.schildbach.wallet.ui.InputParser.StringInputParser;
+import de.schildbach.wallet.ui.preference.PreferenceActivity;
+import de.schildbach.wallet.ui.send.SendCoinsActivity;
+import de.schildbach.wallet.ui.send.SweepWalletActivity;
+import de.schildbach.wallet.util.CircularProgressView;
+import de.schildbach.wallet.util.CrashReporter;
+import de.schildbach.wallet.util.Crypto;
+import de.schildbach.wallet.util.Formats;
+import de.schildbach.wallet.util.Io;
+import de.schildbach.wallet.util.Nfc;
+import de.schildbach.wallet.util.WalletUtils;
 
 /**
  * @author Andreas Schildbach
  */
-public final class WalletActivity extends AbstractBindServiceActivity
-        implements ActivityCompat.OnRequestPermissionsResultCallback {
+public final class PetsSchoolActivity extends AbstractBindServiceActivity
+        implements ActivityCompat.OnRequestPermissionsResultCallback ,View.OnClickListener{
     private static final int DIALOG_BACKUP_WALLET_PERMISSION = 0;
     private static final int DIALOG_RESTORE_WALLET_PERMISSION = 1;
     private static final int DIALOG_RESTORE_WALLET = 2;
@@ -102,6 +126,13 @@ public final class WalletActivity extends AbstractBindServiceActivity
     private static final int REQUEST_CODE_BACKUP_WALLET = 1;
     private static final int REQUEST_CODE_RESTORE_WALLET = 2;
 
+    private TextView subAttView;
+    private TextView subFightView;
+    private TextView subFeedView;
+    private TextView subPlayView;
+    private ViewAnimator vaInfoView;
+
+    private  int petBorn = 99;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +141,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
         config = application.getConfiguration();
         wallet = application.getWallet();
 
-        setContentView(R.layout.wallet_content);
+        setContentView(R.layout.pets_school_activity);
 
         final View exchangeRatesFragment = findViewById(R.id.wallet_main_twopanes_exchange_rates);
         if (exchangeRatesFragment != null)
@@ -134,6 +165,21 @@ public final class WalletActivity extends AbstractBindServiceActivity
             checkSavedCrashTrace();
         }
 
+        subAttView = findViewById(R.id.sub_att);
+        subAttView.setOnClickListener(this);
+        subFightView = findViewById(R.id.sub_fight);
+        subFightView.setOnClickListener(this);
+        subFeedView = findViewById(R.id.sub_feed);
+        subFeedView.setOnClickListener(this);
+        subPlayView = findViewById(R.id.sub_play);
+        subPlayView.setOnClickListener(this);
+
+        findViewById(R.id.btn_feed).setOnClickListener(this);
+        findViewById(R.id.btn_getpet).setOnClickListener(this);
+
+
+        vaInfoView =  findViewById(R.id.va_info);
+
         config.touchLastUsed();
 
         handleIntent(getIntent());
@@ -141,6 +187,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
         final FragmentManager fragmentManager = getFragmentManager();
         MaybeMaintenanceFragment.add(fragmentManager);
         AlertDialogsFragment.add(fragmentManager);
+
     }
 
     @Override
@@ -185,7 +232,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(WalletActivity.this, null, 0, messageResId, messageArgs);
+                    dialog(PetsSchoolActivity.this, null, 0, messageResId, messageArgs);
                 }
             }.parse();
         }
@@ -215,13 +262,13 @@ public final class WalletActivity extends AbstractBindServiceActivity
             new StringInputParser(input) {
                 @Override
                 protected void handlePaymentIntent(final PaymentIntent paymentIntent) {
-                    SendCoinsActivity.start(WalletActivity.this, paymentIntent);
+                    SendCoinsActivity.start(PetsSchoolActivity.this, paymentIntent);
                 }
 
                 @Override
                 protected void handlePrivateKey(final VersionedChecksummedBytes key) {
                     if (Constants.ENABLE_SWEEP_WALLET)
-                        SweepWalletActivity.start(WalletActivity.this, key);
+                        SweepWalletActivity.start(PetsSchoolActivity.this, key);
                     else
                         super.handlePrivateKey(key);
                 }
@@ -233,7 +280,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
 
                 @Override
                 protected void error(final int messageResId, final Object... messageArgs) {
-                    dialog(WalletActivity.this, null, R.string.button_scan, messageResId, messageArgs);
+                    dialog(PetsSchoolActivity.this, null, R.string.button_scan, messageResId, messageArgs);
                 }
             }.parse();
         }
@@ -243,7 +290,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
     public boolean onCreateOptionsMenu(final Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        getMenuInflater().inflate(R.menu.wallet_options, menu);
+        //getMenuInflater().inflate(R.menu.wallet_options, menu);
 
         return true;
     }
@@ -251,22 +298,6 @@ public final class WalletActivity extends AbstractBindServiceActivity
     @Override
     public boolean onPrepareOptionsMenu(final Menu menu) {
         super.onPrepareOptionsMenu(menu);
-
-        final Resources res = getResources();
-        final String externalStorageState = Environment.getExternalStorageState();
-
-        menu.findItem(R.id.wallet_options_exchange_rates)
-                .setVisible(Constants.ENABLE_EXCHANGE_RATES && res.getBoolean(R.bool.show_exchange_rates_option));
-        menu.findItem(R.id.wallet_options_sweep_wallet).setVisible(Constants.ENABLE_SWEEP_WALLET);
-        menu.findItem(R.id.wallet_options_restore_wallet)
-                .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState)
-                        || Environment.MEDIA_MOUNTED_READ_ONLY.equals(externalStorageState));
-        menu.findItem(R.id.wallet_options_backup_wallet)
-                .setEnabled(Environment.MEDIA_MOUNTED.equals(externalStorageState));
-        final MenuItem encryptKeysOption = menu.findItem(R.id.wallet_options_encrypt_keys);
-        encryptKeysOption.setTitle(wallet.isEncrypted() ? R.string.wallet_options_encrypt_keys_change
-                : R.string.wallet_options_encrypt_keys_set);
-
         return true;
     }
 
@@ -334,16 +365,74 @@ public final class WalletActivity extends AbstractBindServiceActivity
             return true;
 
         case R.id.pets_school:
-            startActivity(new Intent(this, PetsSchoolActivity.class));
+            startActivity(new Intent(this, NetworkMonitorActivity.class));
             return true;
 
         case R.id.pets_star:
-            startActivity(new Intent(this, PetsStarActivity.class));
+            HelpDialogFragment.page(getFragmentManager(), R.string.pets_star);
 
             return true;
         }
 
+        if(item.getTitle() == null){
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void clearSubSelect(){
+        int color = 0xffcccccc;
+        int drawableId = R.drawable.btn_corner_bluegray_bg2;
+        subAttView.setTextColor(color);
+        subAttView.setBackground(ContextCompat.getDrawable(this,drawableId));
+        subFightView.setTextColor(color);
+        subFightView.setBackground(ContextCompat.getDrawable(this,drawableId));
+        subFeedView.setTextColor(color);
+        subFeedView.setBackground(ContextCompat.getDrawable(this,drawableId));
+        subPlayView.setTextColor(color);
+        subPlayView.setBackground(ContextCompat.getDrawable(this,drawableId));
+    }
+    private void subSelect(TextView t){
+        int color = 0xffffffff;
+        int drawableId = R.drawable.btn_corner_bluegray_bg;
+        t.setTextColor(color);
+        t.setBackground(ContextCompat.getDrawable(this,drawableId));
+    }
+
+    @Override
+    public void onClick(final View v) {
+
+        clearSubSelect();
+
+        switch (v.getId()) {
+            case R.id.sub_att:
+                subSelect(subAttView);
+                vaInfoView.setDisplayedChild(0);
+                break;
+            case R.id.sub_fight:
+                subSelect(subFightView);
+                vaInfoView.setDisplayedChild(1);
+                break;
+            case R.id.sub_feed:
+                subSelect(subFeedView);
+                vaInfoView.setDisplayedChild(2);
+                break;
+            case R.id.sub_play:
+                subSelect(subPlayView);
+                vaInfoView.setDisplayedChild(3);
+                break;
+            case R.id.btn_feed:
+
+                SendCoinsActivity.start(this, PaymentIntent.blank());
+                break;
+
+
+            case R.id.btn_getpet:
+
+                SendCoinsActivity.start(this, PaymentIntent.fromAddress(Constants.BOSS_ADDRESS,"购买宠物"));
+                break;
+        }
     }
 
     public void handleRequestCoins() {
@@ -398,7 +487,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             @Override
             protected CharSequence collectDeviceInfo() throws IOException {
                 final StringBuilder deviceInfo = new StringBuilder();
-                CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);
+                CrashReporter.appendDeviceInfo(deviceInfo, PetsSchoolActivity.this);
                 return deviceInfo;
             }
 
@@ -624,7 +713,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
                 @Override
                 protected CharSequence collectDeviceInfo() throws IOException {
                     final StringBuilder deviceInfo = new StringBuilder();
-                    CrashReporter.appendDeviceInfo(deviceInfo, WalletActivity.this);
+                    CrashReporter.appendDeviceInfo(deviceInfo, PetsSchoolActivity.this);
                     return deviceInfo;
                 }
 
@@ -656,7 +745,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
             dialog.setPositiveButton(R.string.button_dismiss, null);
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(R.string.button_retry, new OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
                     showDialog(DIALOG_RESTORE_WALLET);
@@ -679,7 +768,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
             dialog.setPositiveButton(R.string.button_dismiss, null);
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(R.string.button_retry, new OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
                     showDialog(DIALOG_RESTORE_WALLET);
@@ -710,7 +799,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             final DialogBuilder dialog = DialogBuilder.warn(this, R.string.import_export_keys_dialog_failure_title);
             dialog.setMessage(getString(R.string.import_keys_dialog_failure, x.getMessage()));
             dialog.setPositiveButton(R.string.button_dismiss, null);
-            dialog.setNegativeButton(R.string.button_retry, new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(R.string.button_retry, new OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, final int id) {
                     showDialog(DIALOG_RESTORE_WALLET);
@@ -745,7 +834,7 @@ public final class WalletActivity extends AbstractBindServiceActivity
             message.append(getString(R.string.restore_wallet_dialog_success_encrypted));
         }
         dialog.setMessage(message);
-        dialog.setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+        dialog.setNeutralButton(R.string.button_ok, new OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, final int id) {
                 getWalletApplication().resetBlockchain();
@@ -754,4 +843,270 @@ public final class WalletActivity extends AbstractBindServiceActivity
         });
         dialog.show();
     }
+
+
+    private class TransModel{
+        public TransModel(int depth,long hitAmount,Date time,String address){
+            this.depth = depth;
+            this.hitAmount = hitAmount;
+            this.time = time;
+            this.address = address;
+        }
+        //确认数
+        int depth = 0;
+        //转账数
+        long hitAmount = 0;
+        // time
+        Date time ;
+        //转账地址
+        String address =  "" ;
+    }
+
+    private TransModel getTransModel(Transaction tx,final Map<Sha256Hash,TransactionsAdapter.TransactionCacheEntry>  transactionCache){
+        final TransactionConfidence confidence = tx.getConfidence();
+        final Transaction.Purpose purpose = tx.getPurpose();
+        final Coin fee = tx.getFee();
+
+        TransactionsAdapter.TransactionCacheEntry txCache = transactionCache.get(tx.getHash());
+        if (txCache == null) {
+            final Coin value = tx.getValue(wallet);
+            final boolean sent = value.signum() < 0;
+            final boolean self = WalletUtils.isEntirelySelf(tx, wallet);
+            final boolean showFee = sent && fee != null && !fee.isZero();
+
+            final Address address;
+            if (sent)
+                address = WalletUtils.getToAddressOfSent(tx, wallet);
+            else
+                address = WalletUtils.getWalletAddressOfReceived(tx, wallet);
+            final String addressLabel = address != null
+                    ? AddressBookProvider.resolveLabel(this, address.toBase58()) : null;
+
+            txCache = new TransactionsAdapter.TransactionCacheEntry(value, sent, self, showFee, address, addressLabel);
+            transactionCache.put(tx.getHash(), txCache);
+        }
+
+        final Coin value ;
+        if (purpose == Transaction.Purpose.RAISE_FEE) {
+            return null;
+        } else {
+            if(txCache == null){
+                value = tx.getValue(wallet).add(fee);
+            }else {
+                if(fee != null)
+                    value = txCache.value.add(fee);
+                else
+                    value = txCache.value;
+            }
+        }
+
+        //确认数
+        int depth = confidence.getDepthInBlocks();
+        //转账数
+        long hitAmount = value.getValue();
+        // time
+        final Date time = tx.getUpdateTime();
+        //转账地址
+        String address = txCache.address.toString() ;
+
+        if(hitAmount<0){
+            hitAmount = 0-hitAmount;
+            hitAmount = hitAmount/100000000;
+        }
+        return new TransModel(depth,hitAmount,time,address);
+    }
+
+    private boolean isPetDestroy(final List<Transaction> transactions,final Map<Sha256Hash, TransactionsAdapter.TransactionCacheEntry>  transactionCache){
+
+        boolean isDestroy = false;
+        for (int i=0;i<transactions.size();i++) {
+
+
+            Transaction tx = transactions.get(i);
+            TransModel transModel = getTransModel(tx,transactionCache);
+
+
+            if(Constants.DESTROY_ADDRESS.equals(transModel.address) && transModel.hitAmount == Constants.DESTROY_AMOUNT){
+                isDestroy = true;
+                break;
+            }
+        }
+        return isDestroy;
+    }
+
+    private int getPetPropetyNumber(String key,int level){
+        int[][] values = Constants.PET_PROPETY_NUMBER.get(key);
+        if(values == null)
+            return 0;
+        if(level == 99 || level == 444)
+            return 0;
+        for(int i=0;i<values.length;i++){
+            if(values[i][0] == level)
+                return values[i][1];
+        }
+        return 0;
+    }
+    private void refreshPetsUI(final List<Transaction> transactions,final Map<Sha256Hash, TransactionsAdapter.TransactionCacheEntry>  transactionCache){
+
+
+
+        //查看宠物是否销毁
+        boolean isDestroy = isPetDestroy(transactions,transactionCache);
+
+        Constants.petPropetyResult.clear();
+        Constants.petPropetyResult.put("liliang"	, 0);
+        Constants.petPropetyResult.put("minjie"	, 0);
+        Constants.petPropetyResult.put("zhili"	, 0);
+        Constants.petPropetyResult.put("tongshuai", 0);
+        Constants.petPropetyResult.put("gedang"	, 0);
+        Constants.petPropetyResult.put("baoji"	, 0);
+        Constants.petPropetyResult.put("yidong"	, 0);
+        Constants.petPropetyResult.put("tiaoju"	, 0);
+        Constants.petPropetyResult.put("gongju"	, 0);
+        Constants.petPropetyResult.put("shunfa"	, 0);
+        Constants.petPropetyResult.put("keji" 	, 0);
+        Constants.petPropetyResult.put("chaonengli", 0);
+        Constants.petPropetyResult.put("tuanzhan" , 0);
+        Constants.petPropetyResult.put("juejin"	, 0);
+
+        final View contentView = findViewById(android.R.id.content);
+        final ImageView petImageView = contentView.findViewWithTag("pet_iv");
+
+        int zhanli = 0;
+        int feedCount = 0;
+        String feedTimeTip = "";
+        if(isDestroy){
+            petBorn = 444;
+            petImageView.setImageResource(R.mipmap.pet444);
+        }else {
+
+            //获取几代接口
+
+
+            petBorn = 99;
+            for (int i=0;i<transactions.size();i++) {
+                Transaction tx = transactions.get(i);
+                TransModel transModel = getTransModel(tx,transactionCache);
+                if(Constants.BOSS_ADDRESS.equals(transModel.address)){
+                    int amount = (int) transModel.hitAmount;
+                    switch (amount)
+                    {
+                        case 1000000000:
+                            petBorn = -1;
+                            petImageView.setImageResource(R.mipmap.pet_1);
+                            break;
+                        case 100000000:
+                            petBorn = 0;
+                            petImageView.setImageResource(R.mipmap.pet0);
+                            break;
+                        case 10000000:
+                            petBorn = 1;
+                            petImageView.setImageResource(R.mipmap.pet1);
+                            break;
+                        case 1000000:
+                            petBorn = 2;
+                            petImageView.setImageResource(R.mipmap.pet2);
+                            break;
+                        case 100000:
+                            petBorn = 3;
+                            petImageView.setImageResource(R.mipmap.pet3);
+                            break;
+                        default:
+                            petImageView.setImageResource(R.mipmap.pet100);
+                            petBorn = 99;
+                    }
+                    break;
+                }
+
+            }
+
+
+
+            //获取属性接口
+
+
+            Date lastFeedTime = null;
+            Date nextFeedTime = null;
+
+            if (petBorn != 99 && petBorn !=444){
+                for (int i=0;i<transactions.size();i++) {
+                    Transaction tx = transactions.get(i);
+                    TransModel transModel = getTransModel(tx, transactionCache);
+
+                    for (String feedAddress : Constants.FEED_ADDRESSES) {
+                        if(feedAddress.equals(transModel.address)){
+                            feedCount ++;
+                            lastFeedTime = transModel.time;
+                        }
+                    }
+                }
+            }
+
+            if(lastFeedTime != null){
+                nextFeedTime =  new Date(lastFeedTime.getTime()+ 18*3600*1000);
+                SimpleDateFormat format  = new SimpleDateFormat("yyyy-MM-dd HH:mm") ;
+                feedTimeTip = "下次可喂养时间: " + format.format(nextFeedTime);
+            }else {
+                feedTimeTip = "请喂养您的宠物！" ;
+            }
+
+
+            Constants.petPropetyResult.put("liliang"	, feedCount * getPetPropetyNumber("liliang",petBorn));
+            Constants.petPropetyResult.put("minjie"	, feedCount * getPetPropetyNumber("minjie",petBorn));
+            Constants.petPropetyResult.put("zhili"	, feedCount * getPetPropetyNumber("liliang",petBorn));
+            Constants.petPropetyResult.put("tongshuai", feedCount * getPetPropetyNumber("tongshuai",petBorn));
+            Constants.petPropetyResult.put("gedang"	, feedCount * getPetPropetyNumber("gedang",petBorn));
+            Constants.petPropetyResult.put("baoji"	, feedCount * getPetPropetyNumber("baoji",petBorn));
+            Constants.petPropetyResult.put("yidong"	, feedCount * getPetPropetyNumber("yidong",petBorn));
+            Constants.petPropetyResult.put("tiaoju"	, feedCount * getPetPropetyNumber("tiaoju",petBorn));
+            Constants.petPropetyResult.put("gongju"	, feedCount * getPetPropetyNumber("gongju",petBorn));
+            Constants.petPropetyResult.put("shunfa"	, feedCount * getPetPropetyNumber("shunfa",petBorn));
+            Constants.petPropetyResult.put("keji" 	, feedCount * getPetPropetyNumber("keji",petBorn));
+            Constants.petPropetyResult.put("chaonengli", feedCount * getPetPropetyNumber("chaonengli",petBorn));
+            Constants.petPropetyResult.put("tuanzhan" , feedCount * getPetPropetyNumber("tuanzhan",petBorn));
+            Constants.petPropetyResult.put("juejin"	, feedCount * getPetPropetyNumber("juejin",petBorn));
+
+
+            for(Map.Entry<String, Integer> entry: Constants.petPropetyResult.entrySet())
+            {
+                zhanli += entry.getValue();
+            }
+            zhanli -= Constants.petPropetyResult.get("juejin");
+
+
+        }
+
+        Constants.petPropetyResult.put("zhanli",zhanli);
+        Constants.petPropetyResult.put("dj",feedCount);
+
+
+
+        for(Map.Entry<String, Integer> entry: Constants.petPropetyResult.entrySet()) {
+            final TextView textView = contentView.findViewWithTag(entry.getKey());
+            if(textView != null){
+                textView.setText(""+entry.getValue().intValue());
+            }
+        }
+
+        final TextView feedInfoTextView = contentView.findViewWithTag("feedInfo");
+        String feedInfo = "无宠物可喂养，请尽快领取您的专属宠物。";
+        if(petBorn == 444){
+            feedInfo = "宠物已经销毁，喂养无效！";
+        }else if(petBorn != 99){
+            feedInfo = feedTimeTip;
+        }
+        feedInfoTextView.setText(feedInfo);
+
+
+    }
+
+    public void refrePets(final List<Transaction> transactions,final Map<Sha256Hash, TransactionsAdapter.TransactionCacheEntry> transactionCache){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshPetsUI(transactions,transactionCache);
+            }
+        }, 1000);
+    }
+
 }
